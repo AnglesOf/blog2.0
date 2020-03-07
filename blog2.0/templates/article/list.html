@@ -1,0 +1,167 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load my_filters_and_tags %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    首页
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+
+ <!-- 列表循环 -->
+<div class="row" style="margin-left:60px">
+    <HR style="margin-left:380px;FILTER:alpha(opacity=100,finishopacity=0,style=3)" width="30%" color=#FF6600 SIZE=3>
+    <!--<div class="card mb-2 hvr-glow" style="display: flex">-->
+    <!--<div class=" row no-gutters align- items -center">-->
+    <!--<div class="row" style="height:auto !important;">-->
+        <!--<div class="col">-->
+        <div class="col-lg-9">
+            <div class="row">
+                {% for article in articles %}
+                <div style="float:left;margin-top: 30px;width: 1px;height: 135px; background: darkgray;"></div>
+                    <!-- 文章内容 -->
+
+                    <!-- 标题图 -->
+                    {% if article.avatar %}
+                        <div class="col-3">
+                            <img src="{{ article.avatar.url }}"
+                                 alt="avatar"
+                                 style="width: 100%; height: 100%; max-height: 156px; min-height: 156px">
+                                 <!--style="max-width:100%;border-radius:20px;">-->
+                        </div>
+                    {% endif %}
+
+                    <div class="col">
+                        <!-- 栏目 -->
+                        {% if article.column %}
+                            <a type="button"
+                                class="btn btn-sm mb-2
+                                    {% if article.column.title == 'Django' %}
+                                        btn-success
+                                    {% elif article.column.title == 'Java' %}
+                                        btn-danger
+                                    {% elif article.column.title == 'HTML' %}
+                                        btn-warning
+                                    {% elif article.column.title == 'Python' %}
+                                        btn-primary
+                                    {% elif article.column.title == 'C/C++' %}
+                                        btn-info
+                                    {% endif %}
+                                "
+                            >
+                                {{ article.column }}
+                            </a>
+                        {% endif %}
+
+                        <!-- 标签 -->
+                        <span>
+                            {% for tag in article.tags.all %}
+                                <a href="{% url 'article:article_list' %}?tag={{ tag }}"
+                                   class="badge badge-secondary"
+                                >
+                                    {{ tag }}
+                                </a>
+                            {% endfor %}
+                        </span>
+
+                        <!-- 标题 -->
+                        <h4>
+                            <b>
+                                <a href="{% url 'article:article_detail' article.id %}"
+                                   style="color: black;"
+                                >
+                                    {{ article.title }}
+                                </a>
+                            </b>
+                        </h4>
+                        <!-- 摘要 -->
+                        <div>
+                            <p style="color: #3C3C3C;">
+                                {{ article.body|slice:'100' }}...
+                            </p>
+                        </div>
+                        <!-- 注脚 -->
+                        <p>
+                            <!-- 附加信息 -->
+                            <span>
+                                <i class="fa fa-free-code-camp" style="color:#FF7F24;"></i>
+                                {{ article.total_views }}&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                <i class="fa fa-thumbs-up" style="color:#EE2C2C;"></i>
+                                {{ article.likes }}&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                <i class="fa fa-paper-plane-o" style="color: yellowgreen;"></i>
+                                <!-- 修改为评论的计数 -->
+                                {{ article.comments.count }}&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                <i class="fa fa-hourglass-2 fa-spin" style="color: blue;"></i>
+                                {{ article.created|date:'Y-m-d' }}
+                            </span>
+                        </p>
+                    </div>
+                    <hr style="width: 100%;" color=grey SIZE=3>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!--侧边框-->
+        <div class="col-lg-3">
+            <div style="float:left;margin-top: 30px;width: 1px;height: 700px; background: darkgray;"></div>
+            <a style="color:blue"><i class="fa fa-globe fa-spin" style="color:blue;"></i>部分功能后期继续完善</a>
+            <br>
+            <a style="color:red">|……………广…………告…………位…………|</a>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <a style="color:red">|……………广…………告…………位…………|</a>
+        </div>
+
+    <!--</div>-->
+    <!-- 页码导航 -->
+    <div class="pagination row" style="margin-top:30px;margin-left:450px">
+        <div class="m-auto">
+            <span class="step-links">
+                <!-- 如果不是第一页，则显示上翻按钮 -->
+                {% if articles.has_previous %}
+                    <a href="?page=1&order={{ order }}&search={{ search }}&column={{ column }}&tag={{ tag }}" class="btn btn-success">
+                        &laquo; 1
+                    </a>
+                    <span>...</span>
+                    <a href="?page={{ articles.previous_page_number }}&order={{ order }}&search={{ search }}&column={{ column }}&tag={{ tag }}"
+                       class="btn btn-secondary"
+                    >
+                        {{ articles.previous_page_number }}
+                    </a>
+                {% endif %}
+
+                <!-- 当前页面 -->
+                <span class="current btn btn-danger btn-lg">
+                    {{ articles.number }}
+                </span>
+
+                <!-- 如果不是最末页，则显示下翻按钮 -->
+                {% if articles.has_next %}
+                    <a href="?page={{ articles.next_page_number }}&order={{ order }}&search={{ search }}&column={{ column }}&tag={{ tag }}"
+                       class="btn btn-secondary"
+                    >
+                        {{ articles.next_page_number }}
+                    </a>
+                    <span>...</span>
+                    <a href="?page={{ articles.paginator.num_pages }}&order={{ order }}&search={{ search }}&column={{ column }}&tag={{ tag }}"
+                       class="btn btn-success"
+                    >
+                        {{ articles.paginator.num_pages }} &raquo;
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

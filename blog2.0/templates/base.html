@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- 载入静态文件 -->
+{% load staticfiles %}
+<!--网站主语言-->
+<html lang="zh-cn">
+
+<head>
+    <!-- 网站采用的字符编码 -->
+    <meta charset="utf-8">
+    <!-- 网站标题 -->
+    <title>blog</title>
+    <!--<title>{% block title %}{% endblock %}</title>-->
+    <!-- 引入bootstrap的css文件 -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- 引入monikai.css -->
+    <link rel="stylesheet" href="{% static 'md_css/monokai.css' %}">
+    <link rel="stylesheet" href="{% static 'tubiao/font-awesome-4.7.0/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'tubiao/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'kuo_zhan/header.css' %}">
+
+
+    <style type="text/css">
+        .bodystyle{
+        filter:alpha(opacity=100);
+         -moz-opacity:1;
+         -khtml-opacity: 1;
+        opacity: 1;
+        height:149%;
+        width:100%;
+        position:absolute;
+        background:url({% static 'bg/bg3.png' %});
+        background-attachment: fixed;
+        background-repeat:no-repeat;
+        background-size: cover;
+         -webkit-background-size: cover;/* 兼容Webkit内核浏览器如Chrome和Safari */
+         -o-background-size: cover;/* 兼容Opera */
+        }
+    </style>
+</head >
+
+<body class="bodystyle">
+
+    <!--<div class="bodystyle">-->
+
+
+    <div >
+    <!-- 引入导航栏 -->
+    {% include 'header.html' %}
+    <!-- 预留具体页面的位置 -->
+    <div class="container col-lg-12" id="wrapper">
+        {% block content %}{% endblock content %}
+        <div id="push"></div>
+
+    </div>
+    <!--</div>-->
+    <h3>♥♫o‧°♥∴☆ ♥‧°☆∴°★‧°♥♫o‧°♥∴☆ ♥‧°☆∴°★‧°♥♫o‧°♥∴☆ ♥‧°☆∴°★‧°♥♫o‧°♥∴☆ ♥‧°☆∴°★‧°♥♫o‧°♥∴☆ ♥‧°☆∴°★‧°♥∴♫♥</h3>
+    <!-- 引入注脚 -->
+    {% include 'footer.html' %}
+    <!-- bootstrap.js 依赖 jquery.js 和popper.js，因此在这里引入 -->
+    <script src="{% static 'jquery/jquery-3.3.1.js' %}"></script>
+    <script src="{% static 'popper/popper-1.14.4.js' %}"></script>
+    <!-- 引入bootstrap的js文件 -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- 引入layer.js -->
+    <script src="{% static 'layer/layer.js' %}"></script>
+    <!--看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+
+    {% block script %}{% endblock script %}
+    {% include 'back_to_top_func.html' %}
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #wrapper {
+            min-height: 100%;
+            margin-bottom: -40px;
+        }
+
+        #footer,
+        #push {
+            height: 380px;
+        }
+    </style>
+    </div>
+</body>
+</html>

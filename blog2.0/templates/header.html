@@ -1,0 +1,112 @@
+{% load notifications_tags %}
+{% notifications_unread as unread_count %}
+
+
+<div class="row">
+    <div id="nav" class="col-lg-5.5">
+        <ul class="sonarmenu">
+            {% if user.is_authenticated %}
+            &emsp;&emsp;&emsp;&nbsp;&nbsp;
+            <li><a href="{% url 'article:article_list' %}" style="color:#D94600">{{ user.username }}的博客</a></li>
+            {% else %}
+            <li><a href="{% url 'article:article_list' %}" style="color:#D94600">我的博客</a></li>
+            {% endif %}
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+            <li><a href="{% url 'article:article_list' %}">主页</a></li>&emsp;
+            <li><a href="{% url 'article:article_create' %}">写文章</a></li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if unread_count %}
+                        <svg viewBox="0 0 8 8"
+                             width="8px"
+                             height="8px">
+                            <circle cx="4"
+                                    cy="4"
+                                    r="4"
+                                    fill="#ff6b6b"
+                            ></circle>
+                        </svg>
+                    {% endif %}
+                    <i class="fa fa-user fa-fw">{{ user.username }}</i>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a style="font-size:20px;" href="{% url "notice:list" %}"><i class="fa fa-snapchat-square fa-fw fa-1x" style="color: black;"></i>通知
+                        {% if unread_count %}
+                            <span class="badge badge-danger">{{ unread_count }}</span>
+                        {% endif %}
+                        </a>
+                    </li>
+                    <li><a style="font-size:20px;" href="{% url "userprofile:edit" user.id %}"><i class="fa fa-address-card fa-fw fa-1x" style="color: black"></i>个人信息</a></li>
+                    <li><a style="font-size:20px;" href="#" onclick="user_delete()"><i class="fa fa-trash-o fa-fw fa-1x" style="color: black"></i>删除用户</a></li>
+                </ul>
+            </li>&emsp;
+
+            <li><a class="nav-link" href='{% url "userprofile:logout" %}'>log out</a></li>
+
+        <!-- 如果用户未登录，则显示 “登录” -->
+        {% else %}
+            <li><a class="nav-link" href="{% url 'account_login' %}">登录</a></li>
+        <!-- if 语句在这里结束 -->
+        {% endif %}
+            <li class="nav-item">
+            <!--<a class="nav-link" href="{% url-->
+            <!--'article:about_me' %}">关于我</a>-->
+            <a class="nav-link" href="#">关于我</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="col-lg-3" style="margin-top:16px">
+        <div class="col-auto mr-auto">
+            <form class="form-inline" >
+                <label class="sr-only">content</label>
+                <input type="text"
+                    class="form-control mb-2 mr-sm-2"
+                    name="search"
+                    placeholder="搜索文章..."
+                    required
+                    style="width:300px"
+                >
+            </form>
+        </div>
+    </div>
+    <!-- 搜索提示语 -->
+    {% if search %}
+        {% if articles %}
+            <h4><span style="color: red">"{{ search }}"</span>的搜索结果如下：</h4>
+            <hr>
+        {% else %}
+            <h4>暂无<span style="color: red">"{{ search }}"</span>有关的文章。</h4>
+            <hr>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<form 
+    style="display:none;" 
+    id="user_delete"
+    action="{% url 'userprofile:delete' user.id %}" 
+    method="POST"
+>
+{% csrf_token %}
+    <button type="submit">发送</button>
+</form>
+    <script>
+        function user_delete() {
+            // 调用layer弹窗组件
+            layer.open({
+                title: "确认删除",
+                content: "确认删除用户资料吗？",
+                yes: function(index, layero) {
+                    $('form#user_delete button').click();
+                    layer.close(index);
+                },
+            })
+        }
+    </script>
+{% endif %}
