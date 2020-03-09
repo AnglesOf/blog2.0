@@ -315,6 +315,4 @@ python manage.py createsuperuser
 - 简单问题，请在[李幸阜的个人网站](https://www.fangshiyu.top)留言
 - 复杂问题，请Email私信我：1020323847@qq.com
 
-**一个人的学习是孤单的。欢迎扫码 Django交流QQ群、博主微信，寻找学伴一起进步吧！**
-
-![](https://www.dusaiphoto.com/static/img/QR.jpg)
+**一个人的学习是孤单的。欢迎watch、star、fork三连 ，寻找学伴一起进步吧！**
