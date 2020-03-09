@@ -301,7 +301,7 @@ python manage.py runserver
 ## 其他说明
 数据库文件`db.sqlite3`以及媒体文件夹`media`中的内容是方便读者查看示例效果而存在的。
 
-master版本管理员账号：dusai  密码：adminpassword
+master版本管理员账号：lxf  密码：adminpassword
 
 如果你想清除所有数据及媒体文件，将它们直接删除，并运行：
 
@@ -312,8 +312,8 @@ python manage.py createsuperuser
 即可重新创建管理员账号。
 
 ## 联系方式
-- 简单问题，请在[杜赛的个人网站](https://www.dusaiphoto.com)留言
-- 复杂问题，请Email私信我：dusaiphoto@foxmail.com
+- 简单问题，请在[李幸阜的个人网站](https://www.fangshiyu.top)留言
+- 复杂问题，请Email私信我：1020323847@qq.com
 
 **一个人的学习是孤单的。欢迎扫码 Django交流QQ群、博主微信，寻找学伴一起进步吧！**
 
