@@ -25,10 +25,8 @@ SECRET_KEY = '__=s9@oixaun$x^g7-4#10wf_*7zvb8)kl1$j82fj&cyq%^o^3'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # 部署到线上时为 False; 读者在本地调试时请修改为 True
-# DEBUG = True
-DEBUG = False
-ALLOWED_HOSTS = ['.fangshiyu.top', '114.55.92.22']
-# ALLOWED_HOSTS = ['*']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -149,11 +147,11 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 # SMTP服务器
-EMAIL_HOST = 'imap.163.com'
+EMAIL_HOST = 'POP3/SMTP服务器'
 # 邮箱名
-EMAIL_HOST_USER = 'lixingfu1999@163.com'
+EMAIL_HOST_USER = '邮箱名'
 # 邮箱密码
-EMAIL_HOST_PASSWORD = '123ace'
+EMAIL_HOST_PASSWORD = '邮箱密码'
 # 发送邮件的端口
 EMAIL_PORT = 25
 # 是否使用 TLS
@@ -206,73 +204,3 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 # 重定向 url
 LOGIN_REDIRECT_URL = '/'
-
-# LOGGING = {
-#     'version': 1,
-#     'handlers': {
-#         'file': {
-#             'level': 'INFO',
-#             'class': 'logging.FileHandler',
-#             'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#         },
-#     },
-# }
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-#             'style': '{',
-#         },
-#         'simple': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#     },
-#     'handlers': {
-#         'console': {
-#             'level': 'INFO',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'simple'
-#         },
-#         'mail_admins': {
-#             'level': 'ERROR',
-#             'class': 'django.utils.log.AdminEmailHandler',
-#             'formatter': 'verbose',
-#         },
-#         'file': {
-#             'level': 'WARNING',
-#             # 'class': 'logging.FileHandler',
-#             'class': 'logging.handlers.TimedRotatingFileHandler',
-#             'when': 'midnight',
-#             'backupCount': 30,
-#             'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
-#             'formatter': 'verbose',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console'],
-#             'propagate': True,
-#         },
-#         'django.request': {
-#             'handlers': ['file', 'mail_admins'],
-#             'level': 'WARNING',
-#             'propagate': False,
-#         },
-#     }
-# }
