@@ -1,17 +1,44 @@
 {% load notifications_tags %}
 {% notifications_unread as unread_count %}
 
+<style>
+.header {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Francois One', Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  transition: all 400ms ease-in-out;
+}
+
+.header--pushDown {
+  text-shadow: 1.5px 1.5px 0 #333, 0px 1.5px 0 #333, -1.5px -1.5px 0 #333, -1.5px -1.5px 0 #333, -1.5px 1.5px 0 #333,
+  1.5px -1.5px 0 #333, 0.77782px 0.77782px 0 #aaaaaa, 1.55563px 1.55563px 0 #aaaaaa, 2.33345px 2.33345px 0 #aaaaaa,
+  3.11127px 3.11127px 0 #aaaaaa, 3.88909px 3.88909px 0 #aaaaaa, 4.6669px 4.6669px 0 #aaaaaa, 5.44472px 5.44472px 0 #aaaaaa;
+}
+.header--pushDown:hover {
+  transform: translate(9px, 9px);
+  text-shadow: 1.5px 1.5px 0 #cac6c5;
+}
+
+.header--shadow:hover {
+  transform: translate(5px, 0);
+}
+.header--shadow.header--raiseUp:hover {
+  transform: translate(-5px, 0);
+}
+</style>
+
 
 <div class="row">
     <div id="nav" class="col-lg-5.5">
         <ul class="sonarmenu">
             {% if user.is_authenticated %}
-            &emsp;&emsp;&emsp;&nbsp;&nbsp;
-            <li><a href="{% url 'article:article_list' %}" style="color:#D94600">{{ user.username }}的博客</a></li>
+            &emsp;&emsp;
+            <li><a class="header header--pushDown header--shadow" href="{% url 'article:article_list' %}" style="font-size: 30px;color:#FF1493">{{ user.username }}的博客</a></li>
             {% else %}
-            <li><a href="{% url 'article:article_list' %}" style="color:#D94600">我的博客</a></li>
+            <li><a class="header header--pushDown header--shadow" href="{% url 'article:article_list' %}" style="font-size: 30px;color:#FF1493">我的博客</a></li>
             {% endif %}
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;
             <li><a href="{% url 'article:article_list' %}">主页</a></li>&emsp;
             <li><a href="{% url 'article:article_create' %}">写文章</a></li>
             {% if user.is_authenticated %}
@@ -60,7 +87,7 @@
     </div>
 
     <!-- 搜索栏 -->
-    <div class="col-lg-3" style="margin-top:16px">
+    <div class="hidden-xs col-lg-3" style="margin-top:16px">
         <div class="col-auto mr-auto">
             <form class="form-inline" >
                 <label class="sr-only">content</label>
